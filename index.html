@@ -4,16 +4,126 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>Rick and Morty</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
-    <h1>Hello, world!</h1>
+<body class="bg-dark text-white">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="navbar shadow-lg fixed-top" style="background-color: black;">
+                    <div class="container-fluid">
+                        <a class="navbar-brand" href="#"><img src="images/lightlogo.jpg" alt="Rick and Morty Logo"
+                                style="width: 120px; height: 50px;"></a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"
+                            aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+                            aria-labelledby="offcanvasNavbarLabel">
+                            <div class="offcanvas-header">
+                                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Sections</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="offcanvas-body">
+                                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">Link</a>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" role="button"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            Dropdown
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#">Action</a></li>
+                                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <form class="d-flex mt-3" role="search">
+                                    <input class="form-control me-2" type="search" placeholder="Search"
+                                        aria-label="Search" />
+                                    <button class="btn btn-outline-success" type="submit">Search</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-12 justify-content-center text-center mt-5 pt-5">
+                <img src="images/rickandmortybanner.jpg" alt="banner" style="width: 75%;">
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row p-3">
+            <div class="col-6 col-md-2">
+                <select id="statusFilter" class="form-select bg-dark text-success" style="border-color: rgb(33, 100, 33);">
+                    <option value="">All Status</option>
+                    <option value="alive">Alive</option>
+                    <option value="dead">Dead</option>
+                    <option value="unknown">Unknown</option>
+                </select>
+            </div>
+            <div class="col-6 col-md-2">
+                <select id="speciesFilter" class="form-select bg-dark text-success" style="border-color: rgb(33, 100, 33);">
+                    <option value="">All Species</option>
+                    <option value="Human">Human</option>
+                    <option value="Alien">Alien</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row" id="characterList">
+        </div>
+
+        <div class="d-flex justify-content-center align-items-center mt-4 gap-3">
+            <button id="prevBtn" class="btn btn-outline-light">Previous</button>
+            <div id="pageNum" class="fs-4 fw-bold">1</div>
+            <button id="nextBtn" class="btn btn-outline-light">Next</button>    
+        </div>
+
+        <div class="modal fade" id="characterModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content bg-dark text-white">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalName"></h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <div class="modal-body text-center">
+                        <img id="modalImage" class="img-fluid rounded mb-3">
+                        <p id="modalDetails"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
+
+    <script src="index.js"></script>
 </body>
 
 </html>

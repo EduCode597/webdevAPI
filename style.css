@@ -1,0 +1,14 @@
+.card {
+    background-color: #1d1d1d !important;
+    border: none;
+    transition: transform .2s;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card img {
+    border-radius: 10px;
+}
