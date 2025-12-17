@@ -1,6 +1,6 @@
 .card {
-    background-color: #1d1d1d !important;
-    border: none;
+    background-color: #2d2d2d !important;
+    border: 2px solid #000000;
     transition: transform .2s;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
