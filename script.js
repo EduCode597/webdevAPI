@@ -15,12 +15,21 @@ var pageText = document.getElementById("pageText");
 var name, status, species, picture;
 var page = 1;
 
-// Filter state (driven by the two <select> dropdowns)
 let currentStatus = "";
 let currentSpecies = "";
 let nameFilter = "";
 
 let allCharacters = [];
+
+const characterModalElement = document.getElementById("characterModal");
+const characterModal = characterModalElement ? bootstrap.Modal.getOrCreateInstance(characterModalElement) : null;
+if (characterModalElement) {
+    characterModalElement.addEventListener("hidden.bs.modal", () => {
+        document.body.classList.remove("modal-open");
+        document.body.style.removeProperty("padding-right");
+        document.querySelectorAll(".modal-backdrop").forEach((backdrop) => backdrop.remove());
+    });
+}
 
 function prevPage() {
     if (page > 1) {
@@ -90,7 +99,7 @@ async function openModal(id) {
     );
     const character = await res.json();
 
-    document.getElementById("modalName").textContent = character.name;
+    document.getElementById("modalName").textContent = character.name + " " + `(ID: ` + character.id + `)`;
     document.getElementById("modalImage").src = character.image;
 
     document.getElementById("modalDetails").innerHTML =
@@ -104,8 +113,9 @@ async function openModal(id) {
     modalContent.classList.remove("bg-dark");
     modalContent.style.backgroundColor = modalColor[character.status];
 
-    const modal = new bootstrap.Modal(document.getElementById("characterModal"));
-    modal.show();
+    if (characterModal) {
+        characterModal.show();
+    }
 }
 
 function setStatusFilter(status) {
