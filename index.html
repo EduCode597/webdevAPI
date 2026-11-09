@@ -4,186 +4,343 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Rick and Morty</title>
+    <title>Rick and Morty // Interdimensional Archive</title>
     <link rel="icon" type="image/svg+xml" href="images/Madriaga_logo.svg" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
-    <link rel="stylesheet" href="style.css" />
     <link
-        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Open+Sans:wght@300;400;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=Open+Sans:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap"
         rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="style.css" />
 </head>
 
-<body style="background-color: #015D53;">
-    <div class="container-fluid" id="Home">
-        <div class="row">
-            <div class="col-12">
-                <div class="navbar shadow-lg fixed-top" style="background-color: black">
-                    <div class="container-fluid">
-                        <a class="navbar-brand" href="#"><img src="images/Rick_and_Morty_Logo.png"
-                                alt="Rick and Morty Logo" style="width: 200px; height: 50px" /></a>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
-                            data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"
-                            aria-label="Toggle navigation" style="background-color: #6ECB5A;">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="offcanvas offcanvas-end bg-dark text-white" tabindex="-1" id="offcanvasNavbar"
-                            aria-labelledby="offcanvasNavbarLabel">
-                            <div class="offcanvas-header">
-                                <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="font-weight: bold;">
-                                    The Rick and Morty Gallery </h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
-                                    aria-label="Close"></button>
+<body>
+    <!-- Top Neo-Brutalist Navigation -->
+    <header id="Home">
+        <nav class="navbar fixed-top brutal-navbar">
+            <div class="container-xl d-flex align-items-center justify-content-between">
+                <a class="navbar-brand d-flex align-items-center gap-2 m-0" href="#Home">
+                    <img src="images/Rick_and_Morty_Logo.png" alt="Rick and Morty Logo" class="brand-logo-img" />
+                    <span class="mono-badge d-none d-sm-inline-block">ARCHIVE // C-137</span>
+                </a>
+
+                <div class="d-flex align-items-center gap-2 gap-md-3">
+                    <a class="nav-brutal-link d-none d-md-inline-block" href="#aboutShow">ABOUT SHOW</a>
+                    <a class="nav-brutal-link d-none d-md-inline-block" href="#characterSection">CHARACTERS</a>
+                    <button class="btn-brutal-sm d-none d-sm-inline-flex align-items-center gap-1" type="button"
+                        onclick="openRandomModal()">
+                        <i class="bi bi-shuffle"></i> RANDOM SPECIMEN
+                    </button>
+                    <button class="navbar-toggler brutal-toggler" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+
+                <!-- Offcanvas Drawer (Mobile & Quick Access) -->
+                <div class="offcanvas offcanvas-end brutal-offcanvas text-white" tabindex="-1" id="offcanvasNavbar"
+                    aria-labelledby="offcanvasNavbarLabel">
+                    <div class="offcanvas-header brutal-offcanvas-header">
+                        <h5 class="offcanvas-title font-display m-0" id="offcanvasNavbarLabel">
+                            PORTAL NAVIGATION
+                        </h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body d-flex flex-column justify-content-between">
+                        <div>
+                            <p class="mono-label mb-2">DIRECTORY JUMP</p>
+                            <div class="d-flex flex-column gap-2 mb-4">
+                                <a class="btn-brutal-secondary text-center text-decoration-none" href="#aboutShow">
+                                    What is Rick and Morty?
+                                </a>
+                                <a class="btn-brutal-primary text-center text-decoration-none" href="#characterSection">
+                                    Browse Character Archive
+                                </a>
+                                <button class="btn-brutal-secondary" type="button" data-bs-dismiss="offcanvas"
+                                    onclick="openRandomModal()">
+                                    <i class="bi bi-shuffle me-1"></i> Random Character Dossier
+                                </button>
+                                <a class="btn-brutal-secondary text-center text-decoration-none"
+                                    href="https://rickandmortyapi.com/documentation" target="_blank" rel="noopener">
+                                    <i class="bi bi-box-arrow-up-right me-1"></i> Official API Docs
+                                </a>
                             </div>
-                            <div class="offcanvas-body">
-                                <div class="navbar-nav text-center flex-grow-1 pe-3">
-                                    <h1 class="text-secondary" style="text-shadow: none;">Search by name</h1>
-                                    <hr class="text-secondary" />
-                                    <form class="d-flex mb-3" role="search" id="searchForm">
-                                        <input id="searchInput" text="text"
-                                            class="form-control me-2 bg-dark text-white border-success" type="search"
-                                            placeholder="Search by name..." aria-label="Search by name">
-                                        <button class="btn btn-success" type="submit">GO</button>
-                                    </form>
-                                    <div class="d-flex flex-column gap-2">
-                                        <a class="btn btn-outline-success" href="#characterList">Browse Characters</a>
-                                        <a class="btn btn-outline-light"
-                                            href="https://rickandmortyapi.com/documentation" target="_blank">API
-                                            Docs</a>
-                                        <button class="btn btn-outline-info" type="button" data-bs-toggle="modal"
-                                            data-bs-target="#characterModal" onclick="openRandomModal()">Random
-                                            Character</button>
+
+                            <hr class="brutal-divider" />
+
+                            <p class="mono-label mb-2">QUICK TELEMETRY FILTERS</p>
+                            <div class="d-flex flex-wrap gap-2">
+                                <button type="button" class="filter-chip chip-alive" data-bs-dismiss="offcanvas"
+                                    onclick="setStatusFilter('alive')">Alive</button>
+                                <button type="button" class="filter-chip chip-dead" data-bs-dismiss="offcanvas"
+                                    onclick="setStatusFilter('dead')">Dead</button>
+                                <button type="button" class="filter-chip chip-unknown" data-bs-dismiss="offcanvas"
+                                    onclick="setStatusFilter('unknown')">Unknown</button>
+                                <button type="button" class="filter-chip chip-species" data-bs-dismiss="offcanvas"
+                                    onclick="setSpeciesFilter('Human')">Human/Humanoid</button>
+                                <button type="button" class="filter-chip chip-species" data-bs-dismiss="offcanvas"
+                                    onclick="setSpeciesFilter('Alien')">Alien</button>
+                                <button type="button" class="filter-chip chip-reset" data-bs-dismiss="offcanvas"
+                                    onclick="resetFilters()">Reset All</button>
+                            </div>
+                        </div>
+
+                        <div class="mono-label text-secondary small mt-4">
+                            CITADEL OF RICKS // MULTIVERSE TERMINAL
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <!-- Hero & Show Introduction Section (Option A: Interdimensional Dossier) -->
+        <section id="aboutShow" class="hero-section py-4 py-lg-5">
+            <div class="container-xl">
+                <div class="row g-4 align-items-stretch">
+                    <!-- Left Column: Show Synopsis & CTA -->
+                    <div class="col-12 col-lg-7 d-flex">
+                        <div class="brutal-box hero-dossier-card p-4 p-md-5 d-flex flex-column justify-content-between w-100">
+                            <div>
+                                <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+                                    <span class="mono-badge badge-lime">DIMENSION C-137 // TELEVISION ARCHIVE</span>
+                                    <span class="mono-badge">SCI-FI SITCOM</span>
+                                </div>
+
+                                <h1 class="hero-title mb-3">
+                                    What is Rick and Morty?
+                                </h1>
+
+                                <p class="hero-synopsis mb-3">
+                                    <strong>Rick and Morty</strong> is an critically acclaimed adult animated science-fiction sitcom created by Justin Roiland and Dan Harmon. The series follows <strong>Rick Sanchez</strong>—an eccentric, nihilistic genius scientist—and his good-hearted but easily distressed grandson <strong>Morty Smith</strong> as they split their lives between domestic family drama and dangerous interdimensional adventures across infinite realities.
+                                </p>
+
+                                <p class="hero-synopsis-sub mb-4">
+                                    Armed with Rick's portal gun and flying saucer, the duo encounters bizarre alien civilizations, alternate timelines, clones, and the bureaucratic Citadel of Ricks. Use this interactive multiverse database to inspect every documented specimen from the show.
+                                </p>
+                            </div>
+
+                            <div>
+                                <div class="d-flex flex-wrap gap-2 mb-4" aria-label="Show telemetry statistics">
+                                    <div class="stat-pill">
+                                        <span class="stat-label">DATABASE</span>
+                                        <span class="stat-value">826+ CHARACTERS</span>
                                     </div>
-                                    <div class="mt-4">
-                                        <span class="text-secondary text-uppercase small">Quick Filters</span>
-                                        <div class="row justify-content-center align-items-center">
-                                            <div class="col-12">
-                                                <span class="badge bg-success" onclick="setStatusFilter('alive')"
-                                                    style="cursor: pointer;">Alive</span>
-                                                <span class="badge bg-danger" onclick="setStatusFilter('dead')"
-                                                    style="cursor: pointer;">Dead</span>
-                                                <span class="badge bg-secondary" onclick="setStatusFilter('unknown')"
-                                                    style="cursor: pointer;">Unknown</span>
-                                                <span class="badge bg-warning text-dark"
-                                                    onclick="setSpeciesFilter('Human')"
-                                                    style="cursor: pointer;">Human/Humanoid</span>
-                                                <span class="badge bg-primary" onclick="setSpeciesFilter('Alien')"
-                                                    style="cursor: pointer;">Alien</span>
-                                            </div>
-                                        </div>
+                                    <div class="stat-pill">
+                                        <span class="stat-label">REALITIES</span>
+                                        <span class="stat-value">INFINITE TIMELINES</span>
+                                    </div>
+                                    <div class="stat-pill">
+                                        <span class="stat-label">SOURCE</span>
+                                        <span class="stat-value">LIVE REST API</span>
                                     </div>
                                 </div>
+
+                                <div class="d-flex flex-wrap align-items-center gap-3">
+                                    <a href="#characterSection" id="exploreCharactersBtn" class="btn-brutal-primary text-decoration-none">
+                                        EXPLORE CHARACTERS <i class="bi bi-arrow-down-short"></i>
+                                    </a>
+                                    <button type="button" class="btn-brutal-secondary" onclick="openRandomModal()">
+                                        <i class="bi bi-dice-5 me-1"></i> RANDOM DOSSIER
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Framed Portal Artwork -->
+                    <div class="col-12 col-lg-5 d-flex">
+                        <div class="brutal-box portal-banner-frame p-3 p-md-4 d-flex flex-column justify-content-between w-100">
+                            <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom-brutal">
+                                <span class="mono-label text-lime">PORTAL FEED // LIVE VISUAL</span>
+                                <span class="status-dot-live">● ONLINE</span>
+                            </div>
+
+                            <div class="banner-img-wrapper my-auto">
+                                <img class="img-fluid w-100 banner-artwork" src="images/Rick_and_Morty_banner.webp"
+                                    alt="Rick and Morty stepping through a green interdimensional portal" />
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center mt-3 pt-2 border-top-brutal mono-label">
+                                <span>SECTOR: CENTRAL FINITE CURVE</span>
+                                <span>SPECIMEN INDEX v2.0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Character Directory & Inline Filter Command Bar -->
+        <section id="characterSection" class="character-section py-4">
+            <div class="container-xl">
+                <!-- Command Bar -->
+                <div class="brutal-box command-bar p-3 p-md-4 mb-4">
+                    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3 pb-3 border-bottom-brutal">
+                        <div>
+                            <span class="mono-label text-portal d-block">MULTIVERSE SPECIMEN REGISTRY</span>
+                            <h2 class="section-heading m-0">Explore All Characters</h2>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <span id="resultCountText" class="mono-badge badge-lime">LOADING SPECIMENS...</span>
+                        </div>
+                    </div>
+
+                    <div class="row g-3 align-items-center">
+                        <!-- Search by Name Form -->
+                        <div class="col-12 col-lg-5">
+                            <form class="d-flex gap-2" role="search" id="searchForm">
+                                <input id="searchInput" class="form-control brutal-input" type="search"
+                                    placeholder="Search character by name (e.g. Rick, Birdperson)..."
+                                    aria-label="Search by name" />
+                                <button class="btn-brutal-primary px-3" type="submit">GO</button>
+                            </form>
+                        </div>
+
+                        <!-- Status Select -->
+                        <div class="col-6 col-sm-4 col-lg-2">
+                            <select id="statusFilter" class="form-select brutal-select" aria-label="Filter by status">
+                                <option value="">All Status</option>
+                                <option value="alive">Alive</option>
+                                <option value="dead">Dead</option>
+                                <option value="unknown">Unknown</option>
+                            </select>
+                        </div>
+
+                        <!-- Species Select -->
+                        <div class="col-6 col-sm-4 col-lg-3">
+                            <select id="speciesFilter" class="form-select brutal-select" aria-label="Filter by species">
+                                <option value="">All Species</option>
+                                <option value="human">Human/Humanoid</option>
+                                <option value="alien">Alien</option>
+                            </select>
+                        </div>
+
+                        <!-- Reset Button -->
+                        <div class="col-12 col-sm-4 col-lg-2">
+                            <button id="resetFiltersBtn" type="button" class="btn-brutal-secondary w-100"
+                                onclick="resetFilters()">
+                                <i class="bi bi-arrow-counterclockwise me-1"></i> RESET
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Quick Filter Pills Strip -->
+                    <div class="d-flex flex-wrap align-items-center gap-2 mt-3 pt-3 border-top-brutal">
+                        <span class="mono-label me-1">QUICK TAGS:</span>
+                        <button type="button" class="filter-chip chip-alive" onclick="setStatusFilter('alive')">
+                            ● Alive
+                        </button>
+                        <button type="button" class="filter-chip chip-dead" onclick="setStatusFilter('dead')">
+                            ✕ Dead
+                        </button>
+                        <button type="button" class="filter-chip chip-unknown" onclick="setStatusFilter('unknown')">
+                            ? Unknown
+                        </button>
+                        <button type="button" class="filter-chip chip-species" onclick="setSpeciesFilter('Human')">
+                            Human/Humanoid
+                        </button>
+                        <button type="button" class="filter-chip chip-species" onclick="setSpeciesFilter('Alien')">
+                            Alien
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Character Specimen Cards Grid -->
+                <div class="row g-4 align-items-stretch justify-content-center" id="characterList"></div>
+
+                <!-- Pagination & Telemetry Bar -->
+                <div class="brutal-box pagination-bar p-3 mt-4">
+                    <div class="row align-items-center g-3">
+                        <div class="col-12 col-sm-6 d-flex align-items-center gap-2">
+                            <nav aria-label="Character directory pagination">
+                                <ul class="pagination m-0 gap-2">
+                                    <li class="page-item">
+                                        <button id="prevPageBtn" type="button" class="btn-brutal-page"
+                                            aria-label="Previous" onclick="prevPage()">
+                                            <span aria-hidden="true">&laquo; PREV</span>
+                                        </button>
+                                    </li>
+                                    <li class="page-item">
+                                        <button id="nextPageBtn" type="button" class="btn-brutal-page"
+                                            aria-label="Next" onclick="nextPage()">
+                                            <span aria-hidden="true">NEXT &raquo;</span>
+                                        </button>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="col-12 col-sm-6 text-sm-end">
+                            <div id="pageText" class="page-indicator">Page 1</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Classified Specimen Dossier Modal -->
+        <div class="modal fade" id="characterModal" tabindex="-1" aria-labelledby="modalName" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content dossier-modal">
+                    <div class="modal-header dossier-modal-header">
+                        <h5 class="modal-title font-mono fw-bold m-0" id="modalName">CLASSIFIED DOSSIER</h5>
+                        <button type="button" class="btn-brutal-close" data-bs-dismiss="modal" aria-label="Close">
+                            [X] CLOSE
+                        </button>
+                    </div>
+                    <div class="modal-body p-4">
+                        <div class="row g-4 align-items-center">
+                            <div class="col-12 col-md-5 text-center">
+                                <div class="dossier-portrait-frame">
+                                    <img id="modalImage" class="img-fluid w-100" alt="Character portrait" />
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-7">
+                                <div id="modalDetails" class="dossier-details-container"></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 
-    <div class="container-fluid" style="background-color: #028476;">
-        <div class="row align-items-center">
-            <div class="col-12 justify-content-center text-center mt-5 pt-5">
-                <img class="img-fluid rounded-4" src="images/Rick_and_Morty_banner.webp" alt="banner"
-                    style="width: 75%" />
-            </div>
-        </div>
-        <div class="row p-3 justify-content-center align-items-center">
-            <div class="col-12 col-md-8 text-center">
-                <h1 style="color: rgb(213, 255, 157); font-size: 2rem;">
-                    <strong>Explore all the Characters in the Rick and Morty Universe</strong>
-                </h1>
-            </div>
-            <div class="col-6 col-md-2">
-                <select id="statusFilter" class="form-select"
-                    style="border-color: rgb(33, 100, 33); color: #6ECB5A; background-color: #030303">
-                    <option value="">All Status</option>
-                    <option value="alive">Alive</option>
-                    <option value="dead">Dead</option>
-                    <option value="unknown">Unknown</option>
-                </select>
-            </div>
-            <div class="col-6 col-md-2">
-                <select id="speciesFilter" class="form-select"
-                    style="border-color: rgb(33, 100, 33); color: #6ECB5A; background-color: #030303">
-                    <option value="">All Species</option>
-                    <option value="Human">Human/Humanoid</option>
-                    <option value="Alien">Alien</option>
-                </select>
-            </div>
-        </div>
-    </div>
-
-    <div class="container-fluid">
-
-        <div class="row align-items-center justify-content-center" id="characterList"></div>
-
-        <div class="modal fade" id="characterModal" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content bg-dark text-white">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modalName"></h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+    <!-- Neo-Brutalist Footer -->
+    <footer class="brutal-footer mt-5" id="footer">
+        <div class="container-xl py-4">
+            <div class="row align-items-center justify-content-between g-3 text-center text-md-start">
+                <div class="col-12 col-md-5 d-flex flex-column flex-md-row align-items-center gap-3">
+                    <img src="images/Madriaga_logo.svg" alt="EduCode Logo" class="footer-logo" />
+                    <div>
+                        <p class="m-0 fw-bold text-white">© 2025 EduCode. All rights reserved.</p>
+                        <span class="mono-label">POWERED BY THE RICK AND MORTY REST API</span>
                     </div>
-
-                    <div class="modal-body text-center">
-                        <img id="modalImage" class="img-fluid rounded mb-3" />
-                        <p id="modalDetails"></p>
-                    </div>
+                </div>
+                <div class="col-12 col-md-7 d-flex justify-content-center justify-content-md-end gap-2">
+                    <a class="btn-brutal-social" href="https://educode597.github.io/" target="_blank" rel="noopener"
+                        aria-label="GitHub Portfolio">
+                        <i class="bi bi-github"></i>
+                    </a>
+                    <a class="btn-brutal-social" href="https://www.facebook.com/johneduard.madriaga.7" target="_blank"
+                        rel="noopener" aria-label="Facebook Profile">
+                        <i class="bi bi-facebook"></i>
+                    </a>
+                    <a class="btn-brutal-social" href="https://www.instagram.com/duard.gg/" target="_blank"
+                        rel="noopener" aria-label="Instagram Profile">
+                        <i class="bi bi-instagram"></i>
+                    </a>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-6">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <li class="page-item">
-                            <a class="page-link pb-2 px-4" aria-label="Previous" onclick="prevPage()"
-                                style="color: #6ECB5A; background-color: #030303">
-                                <span aria-hidden="true" style="font-size: 1.5rem;">&laquo;</span>
-                            </a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link ms-2 pb-2 px-4" aria-label="Next" onclick="nextPage()"
-                                style="color: #6ECB5A; background-color: #030303;">
-                                <span aria-hidden="true" style="font-size: 1.5rem;">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="col-6 text-end" style="font-weight: bolder; font-size: larger; color: #030303;">
-                <div id="pageText">Page 1</div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container-fluid pt-3" id="footer" style="background-color: #000000;">
-        <div class="row py-3 px-3 align-items-center justify-content-center">
-            <div class="col-12 text-center">
-                <h1 class="mb-1 fs-6" style="color: rgb(76, 134, 0);">© 2025 EduCode. All rights reserved.</h1>
-                <img src="images/Madriaga_logo.svg" alt="myLogo" style="height: 100px; width: 100px;" />
-                <a class="btn btn-outline-success btn-sm" href="https://educode597.github.io/" 
-                style="font-size: 1.5rem;"><i
-                        class="bi bi-github"></i></a>
-                <a class="btn btn-outline-success btn-sm" href="https://www.facebook.com/johneduard.madriaga.7" 
-                style="font-size: 1.5rem;"><i
-                        class="bi bi-facebook"></i></a>
-                <a class="btn btn-outline-success btn-sm" href="https://www.instagram.com/duard.gg/" 
-                style="font-size: 1.5rem;"><i
-                        class="bi bi-instagram"></i></a>
-            </div>
-        </div>
-    </div>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
-
     <script src="script.js"></script>
 </body>
 

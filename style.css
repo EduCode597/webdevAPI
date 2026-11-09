@@ -1,38 +1,623 @@
-.card {
-    background-color: #000000;
-    transition: transform 0.2s;
+/* ==========================================================================
+   PORTAL ACID DARK // NEO-BRUTALIST DESIGN SYSTEM
+   ========================================================================== */
+:root {
+    --bg-canvas: #0b1412;
+    --bg-surface: #12211e;
+    --bg-card: #162925;
+    --text-main: #f4f7f5;
+    --text-muted: #a3bdb6;
+    --accent-portal: #6ecb5a;
+    --accent-lime: #d5ff9d;
+    --accent-dead: #ff4d4d;
+    --accent-unknown: #a3bdb6;
+    --border-brutal: 3px solid #000000;
+    --shadow-brutal-green: 6px 6px 0px #6ecb5a;
+    --shadow-brutal-lime: 8px 8px 0px #d5ff9d;
+    --shadow-brutal-black: 4px 4px 0px #000000;
+    --font-display: 'Orbitron', system-ui, -apple-system, sans-serif;
+    --font-sans: 'Open Sans', system-ui, -apple-system, sans-serif;
+    --font-mono: 'Space Mono', monospace;
 }
 
-/* Header */
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 90px;
+}
+
+body {
+    background-color: var(--bg-canvas);
+    background-image:
+        radial-gradient(rgba(110, 203, 90, 0.08) 1px, transparent 1px);
+    background-size: 24px 24px;
+    color: var(--text-main);
+    font-family: var(--font-sans);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    flex: 1;
+    padding-top: 82px;
+}
+
+/* Typography & Utility Tokens */
+.font-display,
 h1,
 h2,
-.card-title {
-    font-weight: bold;
-    font-size: 1.5rem;
+.section-heading {
+    font-family: var(--font-display);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
 }
 
-h1 {
-    font-weight: bolder;
-    font-size: 1.5rem;
-    font-family: -apple-system, 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica',
-    'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-    color: aliceblue;
-    text-shadow: #000000 2px 2px 4px;
+.font-mono,
+.mono-label,
+.mono-badge {
+    font-family: var(--font-mono);
 }
 
-/* Body text */
-body, p {
-    font-family: -apple-system, 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+.mono-label {
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
 }
 
-.btn-outline-success {
-    font-weight: bold;
+.text-portal {
+    color: var(--accent-portal) !important;
 }
 
-.card:hover {
-    transform: scale(1.05);
+.text-lime {
+    color: var(--accent-lime) !important;
 }
 
-.card img {
-    border-radius: 10px;
+.mono-badge {
+    display: inline-block;
+    padding: 0.25rem 0.65rem;
+    font-size: 0.74rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    background-color: #000000;
+    color: var(--accent-portal);
+    border: 2px solid var(--accent-portal);
+    box-shadow: 2px 2px 0px #000000;
+}
+
+.mono-badge.badge-lime {
+    background-color: var(--accent-lime);
+    color: #000000;
+    border: 2px solid #000000;
+}
+
+/* Core Neo-Brutalist Surfaces */
+.brutal-box {
+    background-color: var(--bg-surface);
+    border: var(--border-brutal);
+    box-shadow: var(--shadow-brutal-green);
+    border-radius: 0;
+}
+
+.border-bottom-brutal {
+    border-bottom: 2px solid #000000;
+}
+
+.border-top-brutal {
+    border-top: 2px solid #000000;
+}
+
+.brutal-divider {
+    border-top: 2px solid var(--accent-portal);
+    opacity: 1;
+}
+
+/* Navbar & Offcanvas */
+.brutal-navbar {
+    background-color: #050a09;
+    border-bottom: var(--border-brutal);
+    box-shadow: 0 4px 0px var(--accent-portal);
+    padding: 0.6rem 0;
+}
+
+.brand-logo-img {
+    width: 175px;
+    height: 48px;
+    object-fit: contain;
+}
+
+.nav-brutal-link {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-main);
+    text-decoration: none;
+    padding: 0.35rem 0.65rem;
+    border: 2px solid transparent;
+    transition: all 0.12s ease;
+}
+
+.nav-brutal-link:hover {
+    color: #000000;
+    background-color: var(--accent-lime);
+    border-color: #000000;
+    box-shadow: 3px 3px 0px #000000;
+}
+
+.brutal-toggler {
+    background-color: var(--accent-portal);
+    border: 3px solid #000000;
+    border-radius: 0;
+    box-shadow: 3px 3px 0px #000000;
+    padding: 0.35rem 0.55rem;
+}
+
+.brutal-offcanvas {
+    background-color: var(--bg-surface);
+    border-left: 4px solid #000000;
+}
+
+.brutal-offcanvas-header {
+    background-color: #000000;
+    border-bottom: 3px solid var(--accent-portal);
+}
+
+/* Hero Section ("Interdimensional Dossier") */
+.hero-title {
+    font-size: clamp(1.75rem, 3.2vw, 2.6rem);
+    color: var(--text-main);
+    line-height: 1.15;
+    text-shadow: 3px 3px 0px #000000;
+}
+
+.hero-synopsis {
+    font-size: 1.02rem;
+    line-height: 1.65;
+    color: var(--text-main);
+}
+
+.hero-synopsis-sub {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+}
+
+.stat-pill {
+    background-color: var(--bg-canvas);
+    border: 2px solid #000000;
+    box-shadow: 3px 3px 0px #000000;
+    padding: 0.4rem 0.75rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+}
+
+.stat-value {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--accent-lime);
+}
+
+.portal-banner-frame {
+    background: linear-gradient(145deg, #102420, #071210);
+}
+
+.banner-img-wrapper {
+    border: var(--border-brutal);
+    box-shadow: 4px 4px 0px #000000;
+    background-color: #000000;
+    overflow: hidden;
+}
+
+.banner-artwork {
+    display: block;
+    object-fit: cover;
+}
+
+.status-dot-live {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--accent-portal);
+}
+
+/* Neo-Brutalist Buttons & Controls */
+.btn-brutal-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    background-color: var(--accent-portal);
+    color: #000000;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.7rem 1.35rem;
+    border: var(--border-brutal);
+    border-radius: 0;
+    box-shadow: var(--shadow-brutal-black);
+    cursor: pointer;
+    transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease;
+}
+
+.btn-brutal-primary:hover {
+    background-color: var(--accent-lime);
+    color: #000000;
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px #000000;
+}
+
+.btn-brutal-primary:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px #000000;
+}
+
+.btn-brutal-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    background-color: var(--bg-canvas);
+    color: var(--text-main);
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    padding: 0.7rem 1.15rem;
+    border: var(--border-brutal);
+    border-radius: 0;
+    box-shadow: var(--shadow-brutal-black);
+    cursor: pointer;
+    transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease;
+}
+
+.btn-brutal-secondary:hover {
+    background-color: var(--accent-lime);
+    color: #000000;
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px #000000;
+}
+
+.btn-brutal-sm {
+    background-color: var(--accent-lime);
+    color: #000000;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    font-weight: 700;
+    padding: 0.35rem 0.75rem;
+    border: 2px solid #000000;
+    box-shadow: 3px 3px 0px #000000;
+    cursor: pointer;
+}
+
+.btn-brutal-sm:hover {
+    background-color: var(--accent-portal);
+}
+
+/* Command Bar Inputs & Selects */
+.section-heading {
+    font-size: clamp(1.25rem, 2.2vw, 1.65rem);
+    color: var(--text-main);
+}
+
+.brutal-input,
+.brutal-select {
+    background-color: var(--bg-canvas) !important;
+    color: var(--text-main) !important;
+    border: var(--border-brutal) !important;
+    border-radius: 0 !important;
+    box-shadow: 3px 3px 0px #000000;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    padding: 0.65rem 0.85rem;
+}
+
+.brutal-input::placeholder {
+    color: var(--text-muted);
+}
+
+.brutal-input:focus,
+.brutal-select:focus {
+    outline: none;
+    border-color: var(--accent-lime) !important;
+    box-shadow: 4px 4px 0px var(--accent-portal) !important;
+}
+
+/* Quick Filter Chips */
+.filter-chip {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 0.3rem 0.7rem;
+    border: 2px solid #000000;
+    box-shadow: 2px 2px 0px #000000;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+}
+
+.filter-chip:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0px #000000;
+}
+
+.chip-alive {
+    background-color: var(--accent-portal);
+    color: #000000;
+}
+
+.chip-dead {
+    background-color: var(--accent-dead);
+    color: #000000;
+}
+
+.chip-unknown {
+    background-color: var(--accent-unknown);
+    color: #000000;
+}
+
+.chip-species {
+    background-color: var(--accent-lime);
+    color: #000000;
+}
+
+.chip-reset {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+/* Specimen Cards (Option A: Full-Bleed Specimen Card) */
+.specimen-card {
+    background-color: var(--bg-card);
+    border: var(--border-brutal);
+    border-radius: 0;
+    box-shadow: var(--shadow-brutal-green);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.16s ease, box-shadow 0.16s ease;
+    overflow: hidden;
+}
+
+.specimen-card:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: var(--shadow-brutal-lime);
+}
+
+.specimen-media {
+    position: relative;
+    border-bottom: var(--border-brutal);
+    background-color: #000000;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+}
+
+.specimen-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0;
+    display: block;
+}
+
+.specimen-id-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #000000;
+    color: var(--accent-lime);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.15rem 0.55rem;
+    border: 2px solid var(--accent-portal);
+    box-shadow: 2px 2px 0px #000000;
+}
+
+.status-stamp {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 0.15rem 0.6rem;
+    border: 2px solid #000000;
+    box-shadow: 2px 2px 0px #000000;
+    color: #000000;
+}
+
+.status-alive {
+    background-color: var(--accent-portal);
+}
+
+.status-dead {
+    background-color: var(--accent-dead);
+    color: #ffffff;
+}
+
+.status-unknown {
+    background-color: var(--accent-unknown);
+}
+
+.specimen-body {
+    padding: 1rem 1.1rem 1.15rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: space-between;
+}
+
+.specimen-name {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-bottom: 0.25rem;
+    line-height: 1.25;
+}
+
+.specimen-meta {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    color: var(--text-muted);
+    margin-bottom: 0.9rem;
+}
+
+/* Classified Dossier Modal */
+.dossier-modal {
+    background-color: var(--bg-surface);
+    color: var(--text-main);
+    border: 4px solid #000000;
+    border-radius: 0;
+    box-shadow: 10px 10px 0px var(--accent-portal);
+}
+
+.dossier-modal-header {
+    background-color: #000000;
+    color: var(--accent-lime);
+    border-bottom: 3px solid #000000;
+    padding: 0.85rem 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-brutal-close {
+    background-color: var(--accent-dead);
+    color: #000000;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.25rem 0.65rem;
+    border: 2px solid #000000;
+    cursor: pointer;
+}
+
+.btn-brutal-close:hover {
+    background-color: #ffffff;
+}
+
+.dossier-portrait-frame {
+    border: var(--border-brutal);
+    box-shadow: 6px 6px 0px var(--accent-portal);
+    background-color: #000000;
+}
+
+.dossier-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+}
+
+.dossier-cell {
+    background-color: var(--bg-canvas);
+    border: 2px solid #000000;
+    box-shadow: 3px 3px 0px #000000;
+    padding: 0.6rem 0.75rem;
+}
+
+.dossier-cell-wide {
+    grid-column: span 2;
+}
+
+.dossier-cell-label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    display: block;
+    margin-bottom: 0.15rem;
+}
+
+.dossier-cell-value {
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: var(--text-main);
+}
+
+/* Pagination & Footer */
+.btn-brutal-page {
+    background-color: #000000;
+    color: var(--accent-portal);
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 0.55rem 1.15rem;
+    border: 2px solid var(--accent-portal);
+    box-shadow: 3px 3px 0px #000000;
+    cursor: pointer;
+    transition: all 0.12s ease;
+}
+
+.btn-brutal-page:hover:not(:disabled) {
+    background-color: var(--accent-portal);
+    color: #000000;
+    border-color: #000000;
+}
+
+.btn-brutal-page:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.page-indicator {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--accent-lime);
+}
+
+.brutal-footer {
+    background-color: #050a09;
+    border-top: var(--border-brutal);
+}
+
+.footer-logo {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+}
+
+.btn-brutal-social {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background-color: var(--bg-surface);
+    color: var(--accent-portal);
+    border: 2px solid var(--accent-portal);
+    box-shadow: 3px 3px 0px #000000;
+    font-size: 1.25rem;
+    text-decoration: none;
+    transition: all 0.12s ease;
+}
+
+.btn-brutal-social:hover {
+    background-color: var(--accent-portal);
+    color: #000000;
+    transform: translate(-2px, -2px);
+}
+
+@media (max-width: 575.98px) {
+    .dossier-grid {
+        grid-template-columns: 1fr;
+    }
+    .dossier-cell-wide {
+        grid-column: span 1;
+    }
 }
