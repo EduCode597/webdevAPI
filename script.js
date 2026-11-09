@@ -25,6 +25,7 @@ var page = 1;
 let currentStatus = "";
 let currentSpecies = "";
 let nameFilter = "";
+let activeRequestId = 0;
 
 let allCharacters = [];
 
@@ -83,8 +84,13 @@ function nextPage() {
 }
 
 const fetchFilteredCharacters = async () => {
+    const reqId = ++activeRequestId;
+    const fetchedResults = [];
     allCharacters = [];
     let currentPage = 1;
+    const statusSnapshot = currentStatus;
+    const speciesSnapshot = currentSpecies;
+    const nameSnapshot = nameFilter;
 
     if (characterList) {
         characterList.innerHTML = `
@@ -98,18 +104,24 @@ const fetchFilteredCharacters = async () => {
 
     while (true) {
         let url = `https://rickandmortyapi.com/api/character/?page=` + currentPage;
-        if (currentStatus) url += `&status=` + encodeURIComponent(currentStatus);
-        if (currentSpecies) url += `&species=` + encodeURIComponent(currentSpecies);
-        if (nameFilter) url += `&name=` + encodeURIComponent(nameFilter);
+        if (statusSnapshot) url += `&status=` + encodeURIComponent(statusSnapshot);
+        if (speciesSnapshot) url += `&species=` + encodeURIComponent(speciesSnapshot);
+        if (nameSnapshot) url += `&name=` + encodeURIComponent(nameSnapshot);
 
         try {
             const response = await fetch(url);
+            if (reqId !== activeRequestId) {
+                return false;
+            }
             if (!response || !response.ok) {
                 break;
             }
             const data = await response.json();
+            if (reqId !== activeRequestId) {
+                return false;
+            }
             if (data && Array.isArray(data.results)) {
-                allCharacters.push(...data.results);
+                fetchedResults.push(...data.results);
             }
             if (!data || !data.info || !data.info.next) {
                 break;
@@ -119,6 +131,12 @@ const fetchFilteredCharacters = async () => {
             break;
         }
     }
+
+    if (reqId === activeRequestId) {
+        allCharacters = fetchedResults;
+        return true;
+    }
+    return false;
 };
 
 const displayCharacters = () => {
@@ -275,19 +293,27 @@ async function openModal(id) {
 }
 
 async function setStatusFilter(statusVal) {
+    const searchInputEl = document.getElementById("searchInput");
+    if (searchInputEl && typeof searchInputEl.value === "string") {
+        nameFilter = searchInputEl.value.trim();
+    }
     currentStatus = String(statusVal || "").toLowerCase();
     page = 1;
     syncFilterControls();
-    await fetchFilteredCharacters();
-    displayCharacters();
+    const isLatest = await fetchFilteredCharacters();
+    if (isLatest !== false) displayCharacters();
 }
 
 async function setSpeciesFilter(speciesVal) {
+    const searchInputEl = document.getElementById("searchInput");
+    if (searchInputEl && typeof searchInputEl.value === "string") {
+        nameFilter = searchInputEl.value.trim();
+    }
     currentSpecies = String(speciesVal || "").toLowerCase();
     page = 1;
     syncFilterControls();
-    await fetchFilteredCharacters();
-    displayCharacters();
+    const isLatest = await fetchFilteredCharacters();
+    if (isLatest !== false) displayCharacters();
 }
 
 async function resetFilters() {
@@ -296,8 +322,8 @@ async function resetFilters() {
     nameFilter = "";
     page = 1;
     syncFilterControls();
-    await fetchFilteredCharacters();
-    displayCharacters();
+    const isLatest = await fetchFilteredCharacters();
+    if (isLatest !== false) displayCharacters();
 }
 
 function openRandomModal() {

@@ -161,3 +161,58 @@ test("openModal populates Classified Dossier Modal with Status, Species, Gender,
     assert.match(els.modalDetails.innerHTML, /Citadel of Ricks/);
     assert.match(els.modalDetails.innerHTML, /3 Episodes/i);
 });
+
+test("setStatusFilter preserves unsubmitted searchInput text and discards stale concurrent fetch results", async () => {
+    const els = createMockDom();
+    let resolveSlowFetch;
+    let callCount = 0;
+
+    global.fetch = (url) => {
+        callCount++;
+        if (callCount === 1) {
+            return new Promise((resolve) => {
+                resolveSlowFetch = () =>
+                    resolve({
+                        ok: true,
+                        status: 200,
+                        json: async () => ({
+                            info: { next: null },
+                            results: [{ id: 99, name: "Stale Slow Character", status: "Alive", species: "Human", origin: { name: "Earth" }, location: { name: "Earth" }, image: "", episode: [] }]
+                        })
+                    });
+            });
+        }
+        return Promise.resolve({
+            ok: true,
+            status: 200,
+            json: async () => ({
+                info: { next: null },
+                results: [{ id: 1, name: "Fresh Dead Rick", status: "Dead", species: "Human", origin: { name: "Earth" }, location: { name: "Earth" }, image: "", episode: [] }],
+                urlCalled: url
+            })
+        });
+    };
+
+    delete require.cache[require.resolve("../script.js")];
+    const app = require("../script.js");
+
+    // User types "Rick" in searchInput without submitting form, then clicks status filter
+    els.searchInput.value = "Rick";
+    const firstPromise = app.setStatusFilter("alive");
+    assert.equal(els.searchInput.value, "Rick");
+    assert.equal(app.getState().nameFilter, "Rick");
+
+    // User immediately switches to "dead" before the first request resolves
+    const secondPromise = app.setStatusFilter("dead");
+    await secondPromise;
+
+    // Now the stale first request resolves late
+    resolveSlowFetch();
+    await firstPromise;
+
+    // Only the second ("Fresh Dead Rick") result should remain in allCharacters
+    assert.equal(app.getState().allCharacters.length, 1);
+    assert.equal(app.getState().allCharacters[0].name, "Fresh Dead Rick");
+});
+
+
