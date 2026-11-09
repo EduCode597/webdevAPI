@@ -12,6 +12,8 @@ test("index.html contains show introduction hero, explore CTA button, and preser
     assert.match(html, /What is Rick and Morty\?/i);
     assert.match(html, /id="exploreCharactersBtn"/);
     assert.match(html, /href="#characterSection"/);
+    assert.match(html, /container-fluid/);
+    assert.doesNotMatch(html, /container-xl/);
 
     const requiredIds = [
         "Home", "offcanvasNavbar", "characterSection", "searchForm",
