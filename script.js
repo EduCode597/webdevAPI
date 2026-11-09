@@ -19,7 +19,6 @@ const statusStampClass = {
 var characterList = document.getElementById("characterList");
 var pageText = document.getElementById("pageText");
 var resultCountText = document.getElementById("resultCountText");
-var name, status, species, picture;
 var page = 1;
 
 let currentStatus = "";
@@ -91,6 +90,10 @@ const fetchFilteredCharacters = async () => {
     const statusSnapshot = currentStatus;
     const speciesSnapshot = currentSpecies;
     const nameSnapshot = nameFilter;
+
+    if (resultCountText) {
+        resultCountText.textContent = "SCANNING MULTIVERSE...";
+    }
 
     if (characterList) {
         characterList.innerHTML = `
@@ -231,9 +234,10 @@ async function openModal(id) {
         const character = await res.json();
 
         const idTag = formatSpecimenId(character.id);
+        const displayName = character.name || "Unknown Specimen";
         const modalNameEl = document.getElementById("modalName");
         if (modalNameEl) {
-            modalNameEl.textContent = `CLASSIFIED DOSSIER // ${character.name} (${idTag})`;
+            modalNameEl.textContent = `CLASSIFIED DOSSIER // ${displayName} (${idTag})`;
         }
 
         const modalImageEl = document.getElementById("modalImage");
