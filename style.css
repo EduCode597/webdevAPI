@@ -391,7 +391,7 @@ h2,
     color: #000000;
 }
 
-/* Specimen Cards (Option A: Full-Bleed Specimen Card) */
+/* Specimen Cards (Option A: Horizontal Split Dossier Card - 145x145px Crisp Avatar) */
 .specimen-card {
     background-color: var(--bg-card);
     border: var(--border-brutal);
@@ -399,8 +399,8 @@ h2,
     box-shadow: var(--shadow-brutal-green);
     height: 100%;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    flex-direction: row;
+    align-items: stretch;
     transition: transform 0.16s ease, box-shadow 0.16s ease;
     overflow: hidden;
 }
@@ -410,48 +410,57 @@ h2,
     box-shadow: var(--shadow-brutal-lime);
 }
 
-.specimen-media {
-    position: relative;
-    border-bottom: var(--border-brutal);
-    background-color: #000000;
-    aspect-ratio: 1 / 1;
-    overflow: hidden;
+.specimen-media-col {
+    width: 145px;
+    min-width: 145px;
+    border-right: var(--border-brutal);
+    background-color: #050a09;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.specimen-media img {
-    width: 100%;
-    height: 100%;
+.specimen-avatar-wrap {
+    width: 145px;
+    height: 145px;
+    background-color: #000000;
+    border-bottom: 2px solid #000000;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.specimen-avatar-wrap img {
+    width: 145px;
+    height: 145px;
     object-fit: cover;
     border-radius: 0;
     display: block;
 }
 
-.specimen-id-badge {
-    position: absolute;
-    top: 10px;
-    left: 10px;
+.specimen-id-strip {
     background-color: #000000;
     color: var(--accent-lime);
     font-family: var(--font-mono);
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     font-weight: 700;
-    padding: 0.15rem 0.55rem;
-    border: 2px solid var(--accent-portal);
-    box-shadow: 2px 2px 0px #000000;
+    text-align: center;
+    padding: 0.35rem 0.25rem;
+    letter-spacing: 0.04em;
+    margin-top: auto;
 }
 
 .status-stamp {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+    display: inline-block;
     font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     font-weight: 700;
     text-transform: uppercase;
-    padding: 0.15rem 0.6rem;
+    padding: 0.15rem 0.55rem;
     border: 2px solid #000000;
     box-shadow: 2px 2px 0px #000000;
     color: #000000;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .status-alive {
@@ -468,27 +477,68 @@ h2,
 }
 
 .specimen-body {
-    padding: 1rem 1.1rem 1.15rem;
+    padding: 0.9rem 1rem;
     display: flex;
     flex-direction: column;
     flex: 1;
     justify-content: space-between;
+    min-width: 0;
+}
+
+.specimen-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-bottom: 0.55rem;
 }
 
 .specimen-name {
     font-family: var(--font-display);
-    font-size: 1.05rem;
+    font-size: 1rem;
     font-weight: 800;
     color: var(--text-main);
-    margin-bottom: 0.25rem;
-    line-height: 1.25;
+    margin: 0;
+    line-height: 1.2;
+    word-break: break-word;
 }
 
-.specimen-meta {
+.specimen-meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.38rem;
+    margin-bottom: 0.75rem;
+}
+
+.specimen-meta-cell {
+    background-color: var(--bg-canvas);
+    border: 1.5px solid #000000;
+    padding: 0.28rem 0.5rem;
     font-family: var(--font-mono);
-    font-size: 0.76rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text-main);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.specimen-meta-cell-wide {
+    grid-column: span 2;
+}
+
+.specimen-meta-label {
+    display: block;
+    font-size: 0.58rem;
+    font-weight: 700;
     color: var(--text-muted);
-    margin-bottom: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.specimen-btn-sm {
+    padding: 0.48rem 0.85rem;
+    font-size: 0.78rem;
 }
 
 /* Classified Dossier Modal */
@@ -529,6 +579,8 @@ h2,
     border: var(--border-brutal);
     box-shadow: 6px 6px 0px var(--accent-portal);
     background-color: #000000;
+    max-width: 260px;
+    margin: 0 auto;
 }
 
 .dossier-grid {

@@ -60,10 +60,14 @@ test("displayCharacters renders Specimen Card Style A with escaped fields, ID ba
     });
 
     app.displayCharacters();
-    assert.match(els.characterList.innerHTML, /#001/);
+    assert.match(els.characterList.innerHTML, /SPECIMEN #001/);
+    assert.match(els.characterList.innerHTML, /specimen-media-col/);
+    assert.match(els.characterList.innerHTML, /specimen-meta-grid/);
     assert.match(els.characterList.innerHTML, /Rick &lt;Sanchez&gt;/);
     assert.match(els.characterList.innerHTML, /ALIVE/i);
-    assert.match(els.characterList.innerHTML, /Human\s*•\s*Earth \(C-137\)/);
+    assert.match(els.characterList.innerHTML, /Human/);
+    assert.match(els.characterList.innerHTML, /Male/);
+    assert.match(els.characterList.innerHTML, /Earth \(C-137\)/);
     assert.match(els.characterList.innerHTML, /VIEW DOSSIER/i);
     assert.equal(els.pageText.textContent, "Page 1 of 1");
     assert.match(els.resultCountText.textContent, /1 SPECIMEN/i);

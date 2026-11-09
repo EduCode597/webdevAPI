@@ -191,24 +191,42 @@ const displayCharacters = () => {
         const idTag = formatSpecimenId(character.id);
         const safeName = escapeHtml(character.name || "Unknown Specimen");
         const safeSpecies = escapeHtml(character.species || "Unknown");
+        const safeGender = escapeHtml(character.gender || "Unknown");
         const safeOrigin = escapeHtml(character.origin?.name || "unknown");
         const safeImage = escapeHtml(character.image || "");
         const numericId = Number(character.id) || 1;
 
         cardsHtml += `
-        <div class="col-12 col-sm-6 col-lg-3">
+        <div class="col-12 col-md-6 col-xl-4">
             <article class="specimen-card">
-                <div class="specimen-media">
-                    <img src="${safeImage}" alt="${safeName}" loading="lazy" />
-                    <span class="specimen-id-badge">${idTag}</span>
-                    <span class="status-stamp ${stampClass}">${escapeHtml(statusLabel)}</span>
+                <div class="specimen-media-col">
+                    <div class="specimen-avatar-wrap">
+                        <img src="${safeImage}" alt="${safeName}" loading="lazy" />
+                    </div>
+                    <div class="specimen-id-strip">SPECIMEN ${idTag}</div>
                 </div>
                 <div class="specimen-body">
                     <div>
-                        <h3 class="specimen-name">${safeName}</h3>
-                        <div class="specimen-meta">${safeSpecies} • ${safeOrigin}</div>
+                        <div class="specimen-header-row">
+                            <h3 class="specimen-name">${safeName}</h3>
+                            <span class="status-stamp ${stampClass}">${escapeHtml(statusLabel)}</span>
+                        </div>
+                        <div class="specimen-meta-grid">
+                            <div class="specimen-meta-cell">
+                                <span class="specimen-meta-label">SPECIES</span>
+                                ${safeSpecies}
+                            </div>
+                            <div class="specimen-meta-cell">
+                                <span class="specimen-meta-label">GENDER</span>
+                                ${safeGender}
+                            </div>
+                            <div class="specimen-meta-cell specimen-meta-cell-wide">
+                                <span class="specimen-meta-label">ORIGIN</span>
+                                ${safeOrigin}
+                            </div>
+                        </div>
                     </div>
-                    <button type="button" class="btn-brutal-primary w-100" onclick="openModal(${numericId})">
+                    <button type="button" class="btn-brutal-primary specimen-btn-sm w-100" onclick="openModal(${numericId})">
                         VIEW DOSSIER &rarr;
                     </button>
                 </div>

@@ -35,5 +35,8 @@ test("style.css defines Portal Acid Dark Neo-Brutalist custom properties and com
     assert.match(css, /\.brutal-box\b/);
     assert.match(css, /\.btn-brutal-primary\b/);
     assert.match(css, /\.specimen-card\b/);
+    assert.match(css, /\.specimen-media-col\b/);
+    assert.match(css, /\.specimen-id-strip\b/);
+    assert.match(css, /\.specimen-meta-grid\b/);
 });
 
